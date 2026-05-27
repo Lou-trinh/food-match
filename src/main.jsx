@@ -48,7 +48,7 @@ function App() {
   const skippedForMeal = skipped.filter((food) => foodMatchesMeal(food, meal));
 
   useEffect(() => {
-    const upcomingFoods = deckFoods.slice(index, index + 6);
+    const upcomingFoods = deckFoods.slice(index, index + 12);
     upcomingFoods.forEach((food) => {
       const image = new Image();
       image.src = food.image;

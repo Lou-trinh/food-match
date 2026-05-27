@@ -264,34 +264,28 @@ img {
   z-index: 2;
   transform: scale(0.935) translateY(23px);
   opacity: 0.72;
-  filter: brightness(0.96);
   transition:
     transform 460ms cubic-bezier(0.18, 0.88, 0.18, 1),
-    opacity 360ms ease,
-    filter 360ms ease;
+    opacity 360ms ease;
 }
 
 .card-back {
   z-index: 1;
   transform: scale(0.87) translateY(46px);
-  opacity: 0.42;
-  filter: brightness(0.9);
+  opacity: 0.38;
   transition:
     transform 500ms cubic-bezier(0.18, 0.88, 0.18, 1),
-    opacity 380ms ease,
-    filter 380ms ease;
+    opacity 380ms ease;
 }
 
 .deck.is-advancing .card-next {
   transform: scale(1) translateY(0);
   opacity: 1;
-  filter: brightness(1);
 }
 
 .deck.is-advancing .card-back {
   transform: scale(0.935) translateY(23px);
   opacity: 0.72;
-  filter: brightness(0.96);
 }
 
 .card-active {
@@ -330,8 +324,7 @@ img {
   gap: 6px;
   padding: 7px 9px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.38);
   font-size: 0.8rem;
   font-weight: 850;
 }
