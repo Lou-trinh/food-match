@@ -1,6 +1,6 @@
 import { StrictMode, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Check, ChevronDown, Flame, RotateCcw, Search, Star, Utensils, X } from "lucide-react";
+import { Check, ChevronDown, Flame, RotateCcw, Search, Shuffle, Star, Utensils, X } from "lucide-react";
 import { foods } from "./foodData";
 import "./styles.css";
 
@@ -31,6 +31,8 @@ function App() {
   const [leaveMode, setLeaveMode] = useState("drag");
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [isLikedOpen, setIsLikedOpen] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
+  const [shuffleTransDur, setShuffleTransDur] = useState(200);
   const startPoint = useRef(null);
 
   const deckFoods = useMemo(() => {
@@ -91,6 +93,49 @@ function App() {
       setIsLeaving(false);
       window.setTimeout(() => setIsAdvancing(false), 60);
     }, mode === "button" ? 680 : 420);
+  }
+
+  function handleRandom() {
+    if (!deckFoods.length || isShuffling || isLeaving) return;
+
+    const deckLen = deckFoods.length;
+    const targetIdx = Math.floor(Math.random() * deckLen);
+    const count = Math.min(7, Math.max(3, Math.floor(deckLen / 2)));
+    const durations =  [130, 170, 220, 290, 390, 520, 680].slice(0, count);
+    const timeouts =   [175, 215, 270, 350, 470, 625, 810].slice(0, count);
+
+    setIsShuffling(true);
+    let step = 0;
+    let dir = 1;
+
+    function runStep() {
+      if (step >= count) {
+        setIndex(targetIdx);
+        setDrag({ x: 0, y: 0, active: false });
+        setIsLeaving(false);
+        setIsAdvancing(false);
+        window.setTimeout(() => setIsShuffling(false), 350);
+        return;
+      }
+      setShuffleTransDur(durations[step]);
+      setLeaveMode("shuffle");
+      setIsLeaving(true);
+      setIsAdvancing(true);
+      setDrag({ x: dir * 520, y: -18, active: false });
+      window.setTimeout(() => {
+        setIndex((prev) => (prev + 1) % deckLen);
+        setDrag({ x: 0, y: 0, active: false });
+        setIsLeaving(false);
+        window.setTimeout(() => {
+          setIsAdvancing(false);
+          step++;
+          dir = -dir;
+          runStep();
+        }, 55);
+      }, timeouts[step]);
+    }
+
+    runStep();
   }
 
   function resetDeck() {
@@ -221,17 +266,19 @@ function App() {
               transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x / 18}deg)`,
               transition: drag.active
                 ? "none"
-                : isLeaving && leaveMode === "button"
-                  ? "transform 430ms cubic-bezier(.16,.82,.22,1), opacity 360ms ease"
-                  : isLeaving
-                    ? "transform 260ms cubic-bezier(.2,.75,.2,1), opacity 220ms ease"
-                  : "transform 180ms cubic-bezier(.2,.75,.2,1), opacity 180ms ease",
+                : isLeaving && leaveMode === "shuffle"
+                  ? `transform ${shuffleTransDur}ms cubic-bezier(.16,.82,.22,1), opacity ${Math.round(shuffleTransDur * 0.84)}ms ease`
+                  : isLeaving && leaveMode === "button"
+                    ? "transform 430ms cubic-bezier(.16,.82,.22,1), opacity 360ms ease"
+                    : isLeaving
+                      ? "transform 260ms cubic-bezier(.2,.75,.2,1), opacity 220ms ease"
+                      : "transform 180ms cubic-bezier(.2,.75,.2,1), opacity 180ms ease",
               opacity: Math.max(0, 1 - Math.abs(drag.x) / 520),
             }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
+            onPointerDown={isShuffling ? undefined : onPointerDown}
+            onPointerMove={isShuffling ? undefined : onPointerMove}
+            onPointerUp={isShuffling ? undefined : onPointerUp}
+            onPointerCancel={isShuffling ? undefined : onPointerUp}
           />
         ) : (
           <section className="done-card">
@@ -268,13 +315,16 @@ function App() {
       </section>
 
       <footer className="actions">
-        <button className="action-button reject" onClick={() => finishSwipe("skip", "button")} disabled={!currentFood}>
+        <button className="action-button reject" onClick={() => finishSwipe("skip", "button")} disabled={!currentFood || isShuffling}>
           <X size={26} />
         </button>
-        <button className="reset-button" onClick={resetDeck}>
+        <button className="reset-button" onClick={resetDeck} disabled={isShuffling}>
           <RotateCcw size={16} />
         </button>
-        <button className="action-button accept" onClick={() => finishSwipe("like", "button")} disabled={!currentFood}>
+        <button className={`random-button${isShuffling ? " is-shuffling" : ""}`} onClick={handleRandom} disabled={!deckFoods.length || isShuffling}>
+          <Shuffle size={16} />
+        </button>
+        <button className="action-button accept" onClick={() => finishSwipe("like", "button")} disabled={!currentFood || isShuffling}>
           <Check size={28} />
         </button>
       </footer>

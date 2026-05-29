@@ -406,8 +406,8 @@ img {
 
 .actions {
   display: grid;
-  grid-template-columns: 1fr 46px 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr 42px 42px 1fr;
+  gap: 9px;
   padding: 12px 0;
 }
 
@@ -450,8 +450,8 @@ img {
 }
 
 .reset-button {
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: linear-gradient(180deg, #2e2d29 0%, #17160f 100%);
   color: #fff;
@@ -460,6 +460,30 @@ img {
     0 2px 5px rgba(0, 0, 0, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.random-button {
+  display: inline-grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #f9c740 0%, #d4920e 100%);
+  color: #3d2a00;
+  box-shadow:
+    0 8px 20px rgba(200, 140, 0, 0.3),
+    0 2px 5px rgba(200, 140, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transition: opacity 120ms ease;
+}
+
+.random-button.is-shuffling svg {
+  animation: spin 0.55s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .done-card {
