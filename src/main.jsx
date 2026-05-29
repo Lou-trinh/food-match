@@ -1,7 +1,8 @@
 import { StrictMode, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Check, ChevronDown, Flame, RotateCcw, Search, Shuffle, Star, Utensils, X } from "lucide-react";
+import { Check, ChevronDown, Flame, GlassWater, RotateCcw, Search, Shuffle, Star, Utensils, X } from "lucide-react";
 import { foods } from "./foodData";
+import { drinks } from "./drinkData";
 import "./styles.css";
 
 const mealFilters = [
@@ -9,6 +10,13 @@ const mealFilters = [
   { id: "sáng", label: "Sáng", hint: "nhanh gọn" },
   { id: "trưa", label: "Trưa", hint: "no bụng" },
   { id: "tối", label: "Tối", hint: "ấm cúng" },
+];
+
+const drinkFilters = [
+  { id: "all", label: "Tất cả", hint: "10 loại" },
+  { id: "cà phê", label: "Cà phê", hint: "đậm đà" },
+  { id: "trà", label: "Trà", hint: "thanh mát" },
+  { id: "giải khát", label: "Giải khát", hint: "mát lạnh" },
 ];
 
 function currency(value) {
@@ -21,6 +29,7 @@ function foodMatchesMeal(food, meal) {
 }
 
 function App() {
+  const [page, setPage] = useState("food");
   const [meal, setMeal] = useState("all");
   const [search, setSearch] = useState("");
   const [index, setIndex] = useState(0);
@@ -35,14 +44,18 @@ function App() {
   const [shuffleTransDur, setShuffleTransDur] = useState(200);
   const startPoint = useRef(null);
 
+  const activeData = page === "food" ? foods : drinks;
+  const activeFilters = page === "food" ? mealFilters : drinkFilters;
+
   const deckFoods = useMemo(() => {
+    const data = page === "food" ? foods : drinks;
     const q = search.trim().toLowerCase();
-    return foods.filter((food) => {
+    return data.filter((food) => {
       if (!foodMatchesMeal(food, meal)) return false;
       if (q) return food.name.toLowerCase().includes(q);
       return true;
     });
-  }, [meal, search]);
+  }, [page, meal, search]);
   const currentFood = deckFoods[index];
   const nextFood = deckFoods[index + 1];
   const decision = drag.x > 55 ? "like" : drag.x < -55 ? "skip" : null;
@@ -56,6 +69,21 @@ function App() {
       image.src = food.image;
     });
   }, [deckFoods, index]);
+
+  function changePage(newPage) {
+    if (newPage === page) return;
+    setPage(newPage);
+    setMeal("all");
+    setSearch("");
+    setIndex(0);
+    setLiked([]);
+    setSkipped([]);
+    setDrag({ x: 0, y: 0, active: false });
+    setIsLeaving(false);
+    setIsAdvancing(false);
+    setIsLikedOpen(false);
+    setIsShuffling(false);
+  }
 
   function changeMeal(nextMeal) {
     setMeal(nextMeal);
@@ -180,14 +208,25 @@ function App() {
 
   return (
     <main className="app">
+      <div className="page-switcher">
+        <button className={page === "food" ? "is-active" : ""} onClick={() => changePage("food")}>
+          <Utensils size={15} />
+          Đồ ăn
+        </button>
+        <button className={page === "drink" ? "is-active" : ""} onClick={() => changePage("drink")}>
+          <GlassWater size={15} />
+          Đồ uống
+        </button>
+      </div>
+
       <header className="hero">
         <div className="brand-row">
           <span className="brand-mark">
             <Utensils size={18} />
           </span>
           <div>
-            <p>Vietnam Food Match</p>
-            <h1>Quẹt để chọn món Việt hôm nay</h1>
+            <p>{page === "food" ? "Vietnam Food Match" : "Vietnam Drink Match"}</p>
+            <h1>{page === "food" ? "Quẹt để chọn món Việt hôm nay" : "Quẹt để chọn đồ uống hôm nay"}</h1>
           </div>
         </div>
 
@@ -223,7 +262,7 @@ function App() {
       </div>
 
       <nav className="meal-tabs" aria-label="Lọc theo bữa ăn">
-        {mealFilters.map((item) => (
+        {activeFilters.map((item) => (
           <button
             key={item.id}
             className={meal === item.id ? "is-active" : ""}

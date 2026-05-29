@@ -45,6 +45,38 @@ img {
   background: #f8f5ef;
 }
 
+.page-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.page-switcher button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  border-radius: 13px;
+  background: transparent;
+  color: #6b6457;
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.page-switcher button.is-active {
+  background: #fff;
+  color: #171713;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 .hero {
   padding: 13px 14px;
   border: 1px solid rgba(24, 23, 19, 0.06);
