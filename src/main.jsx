@@ -1,19 +1,26 @@
 import { StrictMode, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Check, ChevronDown, Flame, GlassWater, RotateCcw, Search, Shuffle, Star, Utensils, X } from "lucide-react";
-import { foods } from "./foodData";
-import { drinks } from "./drinkData";
 import "./styles.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+function imgSrc(path) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  if (path.startsWith("/uploads/")) return API_URL + path;
+  return path;
+}
+
 const mealFilters = [
-  { id: "all", label: "Tất cả", hint: "78 món" },
+  { id: "all", label: "Tất cả", hint: "" },
   { id: "sáng", label: "Sáng", hint: "nhanh gọn" },
   { id: "trưa", label: "Trưa", hint: "no bụng" },
   { id: "tối", label: "Tối", hint: "ấm cúng" },
 ];
 
 const drinkFilters = [
-  { id: "all",          label: "Tất cả",      hint: "21 loại" },
+  { id: "all",          label: "Tất cả",      hint: "" },
   { id: "cà phê việt", label: "Cà phê Việt", hint: "truyền thống" },
   { id: "cà phê máy",  label: "Cà phê máy",  hint: "espresso" },
   { id: "trà",         label: "Trà",          hint: "thanh mát" },
@@ -33,6 +40,14 @@ function foodMatchesMeal(food, meal) {
 }
 
 function App() {
+  const [foods, setFoods] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/foods`).then(r => r.json()).then(setFoods).catch(() => {});
+    fetch(`${API_URL}/api/drinks`).then(r => r.json()).then(setDrinks).catch(() => {});
+  }, []);
+
   const [page, setPage] = useState("food");
   const [meal, setMeal] = useState("all");
   const [search, setSearch] = useState("");
@@ -49,7 +64,9 @@ function App() {
   const startPoint = useRef(null);
 
   const activeData = page === "food" ? foods : drinks;
-  const activeFilters = page === "food" ? mealFilters : drinkFilters;
+  const activeFilters = (page === "food" ? mealFilters : drinkFilters).map((f, i) =>
+    i === 0 ? { ...f, hint: `${activeData.length} ${page === "food" ? "món" : "loại"}` } : f
+  );
 
   const deckFoods = useMemo(() => {
     const data = page === "food" ? foods : drinks;
@@ -394,7 +411,7 @@ function App() {
                 <div className="liked-panel__list">
                   {liked.map((food, i) => (
                     <div className="liked-panel__item" key={`${food.id}-${i}`}>
-                      <img src={food.image} alt={food.name} className="liked-panel__thumb" onError={(e) => { e.currentTarget.src = food.fallbackImage; }} />
+                      <img src={imgSrc(food.image)} alt={food.name} className="liked-panel__thumb" onError={(e) => { e.currentTarget.src = food.fallbackImage; }} />
                       <div className="liked-panel__item-info">
                         <strong>{food.name}</strong>
                         <span>{food.tag}</span>
@@ -441,15 +458,16 @@ function FoodCard({ food, className, decision, ...props }) {
     <article className={className} {...cardProps}>
       {decision && <div className={`stamp ${decision}`}>{decision === "like" ? "V" : "X"}</div>}
       <img
-        src={food.image}
+        src={imgSrc(food.image)}
         alt={food.name}
         draggable="false"
         loading={loading}
         decoding="async"
         fetchPriority={className.includes("card-active") ? "high" : "auto"}
         onError={(event) => {
-          if (food.fallbackImage && event.currentTarget.src !== food.fallbackImage) {
-            event.currentTarget.src = food.fallbackImage;
+          const fb = food.fallbackImage;
+          if (fb && event.currentTarget.src !== fb) {
+            event.currentTarget.src = fb;
           }
         }}
       />
