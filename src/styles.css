@@ -216,6 +216,25 @@ img {
   padding: 11px 0;
 }
 
+.meal-tabs--scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: 7px;
+  padding: 11px 2px;
+}
+
+.meal-tabs--scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.meal-tabs--scroll button {
+  flex: 0 0 auto;
+  min-width: 90px;
+}
+
 .meal-tabs button {
   min-height: 46px;
   padding: 7px 5px;

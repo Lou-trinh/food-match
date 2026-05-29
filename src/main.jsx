@@ -13,10 +13,14 @@ const mealFilters = [
 ];
 
 const drinkFilters = [
-  { id: "all", label: "Tất cả", hint: "10 loại" },
-  { id: "cà phê", label: "Cà phê", hint: "đậm đà" },
-  { id: "trà", label: "Trà", hint: "thanh mát" },
-  { id: "giải khát", label: "Giải khát", hint: "mát lạnh" },
+  { id: "all",          label: "Tất cả",      hint: "26 loại" },
+  { id: "cà phê việt", label: "Cà phê Việt", hint: "truyền thống" },
+  { id: "cà phê máy",  label: "Cà phê máy",  hint: "espresso" },
+  { id: "trà",         label: "Trà",          hint: "thanh mát" },
+  { id: "nước ép",     label: "Nước ép",      hint: "tươi mát" },
+  { id: "sữa chua",    label: "Sữa chua",     hint: "mát lạnh" },
+  { id: "matcha",      label: "Matcha",        hint: "thuần Nhật" },
+  { id: "sinh tố",     label: "Sinh tố",      hint: "bổ dưỡng" },
 ];
 
 function currency(value) {
@@ -261,7 +265,7 @@ function App() {
         )}
       </div>
 
-      <nav className="meal-tabs" aria-label="Lọc theo bữa ăn">
+      <nav className={`meal-tabs${activeFilters.length > 4 ? " meal-tabs--scroll" : ""}`} aria-label="Lọc theo bữa ăn">
         {activeFilters.map((item) => (
           <button
             key={item.id}
