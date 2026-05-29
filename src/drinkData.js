@@ -87,7 +87,7 @@ export const drinks = [
     rating: 4.6,
     description: "Cà phê phin robusta đậm đà, nhỏ chậm qua phin rồi đổ lên đá lạnh — sảng khoái tức thì.",
     ingredients: ["Cà phê robusta", "Đá", "Đường (tùy chọn)"],
-    image: "/images/drinks/ca-phe-den-da.jpg",
+    image: "/images/drinks/den-da.jpg",
     fallbackImage: fb.viet,
   },
   {
@@ -100,7 +100,7 @@ export const drinks = [
     rating: 4.8,
     description: "Cà phê phin hoà quyện cùng cốt dừa béo ngậy xay nhuyễn, thơm dừa lan toả từng ngụm.",
     ingredients: ["Cà phê phin", "Cốt dừa", "Sữa đặc", "Đá xay"],
-    image: "/images/drinks/ca-phe-dua.jpg",
+    image: "/images/drinks/ca-phe-cot-dua.jpg",
     fallbackImage: fb.viet,
   },
   {
@@ -113,7 +113,7 @@ export const drinks = [
     rating: 4.9,
     description: "Cà phê phin pha sữa đặc ngọt bùi, đổ đá lạnh — thức uống quốc dân số một Việt Nam.",
     ingredients: ["Cà phê phin", "Sữa đặc", "Đá"],
-    image: "/images/drinks/ca-phe-sua-da.jpg",
+    image: "/images/drinks/nau-da.jpg",
     fallbackImage: fb.viet,
   },
   {
@@ -141,7 +141,7 @@ export const drinks = [
     rating: 4.7,
     description: "Matcha cấp độ ceremonial hoà với steamed milk béo mịn, ấm áp và thanh đắng dịu.",
     ingredients: ["Matcha ceremonial", "Steamed milk", "Mật ong (tùy chọn)"],
-    image: "/images/drinks/matcha-latte-nong.jpg",
+    image: "/images/drinks/matcha-latte.jpg",
     fallbackImage: fb.matcha,
   },
   {
@@ -169,7 +169,7 @@ export const drinks = [
     rating: 4.5,
     description: "Cam tươi ép nguyên chất không pha loãng, ngọt chua tự nhiên giàu vitamin C.",
     ingredients: ["Cam tươi", "Đá", "Đường (tùy chọn)"],
-    image: "/images/drinks/nuoc-cam-ep.jpg",
+    image: "/images/drinks/cam-ep.jpg",
     fallbackImage: fb.juice,
   },
   {
@@ -182,7 +182,7 @@ export const drinks = [
     rating: 4.4,
     description: "Chanh vắt tươi nguyên chất, chua thanh tự nhiên — giải khát nhanh gọn và dễ chịu.",
     ingredients: ["Chanh tươi", "Đường", "Đá", "Soda (tùy chọn)"],
-    image: "/images/drinks/nuoc-chanh-muoi.jpg",
+    image: "/images/drinks/nuoc-chanh.jpg",
     fallbackImage: fb.juice,
   },
   {
@@ -195,7 +195,7 @@ export const drinks = [
     rating: 4.6,
     description: "Nước dừa tươi nguyên trái, ngọt thanh tự nhiên, bổ điện giải và cực kỳ giải nhiệt.",
     ingredients: ["Dừa tươi", "Đá"],
-    image: "/images/drinks/nuoc-dua.jpg",
+    image: "/images/drinks/nuoc-dua-tuoi.jpg",
     fallbackImage: fb.juice,
   },
   {
