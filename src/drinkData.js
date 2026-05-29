@@ -87,7 +87,7 @@ export const drinks = [
     rating: 4.6,
     description: "CÃ  phÃª phin robusta Ä‘áº­m Ä‘Ã , nhá» cháº­m qua phin rá»“i Ä‘á»• lÃªn Ä‘Ã¡ láº¡nh â€” sáº£ng khoÃ¡i tá»©c thÃ¬.",
     ingredients: ["CÃ  phÃª robusta", "ÄÃ¡", "ÄÆ°á»ng (tÃ¹y chá»n)"],
-    image: "/images/drinks/ca-phe-den-da.jpg",
+    image: "/images/drinks/den-da.jpg",
     fallbackImage: fb.viet,
   },
   {
@@ -100,7 +100,7 @@ export const drinks = [
     rating: 4.8,
     description: "CÃ  phÃª phin hoÃ  quyá»‡n cÃ¹ng cá»‘t dá»«a bÃ©o ngáº­y xay nhuyá»…n, thÆ¡m dá»«a lan toáº£ tá»«ng ngá»¥m.",
     ingredients: ["CÃ  phÃª phin", "Cá»‘t dá»«a", "Sá»¯a Ä‘áº·c", "ÄÃ¡ xay"],
-    image: "/images/drinks/ca-phe-dua.jpg",
+    image: "/images/drinks/ca-phe-cot-dua.jpg",
     fallbackImage: fb.viet,
   },
   {
@@ -113,7 +113,7 @@ export const drinks = [
     rating: 4.9,
     description: "CÃ  phÃª phin pha sá»¯a Ä‘áº·c ngá»t bÃ¹i, Ä‘á»• Ä‘Ã¡ láº¡nh â€” thá»©c uá»‘ng quá»‘c dÃ¢n sá»‘ má»™t Viá»‡t Nam.",
     ingredients: ["CÃ  phÃª phin", "Sá»¯a Ä‘áº·c", "ÄÃ¡"],
-    image: "/images/drinks/ca-phe-sua-da.jpg",
+    image: "/images/drinks/nau-da.jpg",
     fallbackImage: fb.viet,
   },
   {
@@ -141,7 +141,7 @@ export const drinks = [
     rating: 4.7,
     description: "Matcha cáº¥p Ä‘á»™ ceremonial hoÃ  vá»›i steamed milk bÃ©o má»‹n, áº¥m Ã¡p vÃ  thanh Ä‘áº¯ng dá»‹u.",
     ingredients: ["Matcha ceremonial", "Steamed milk", "Máº­t ong (tÃ¹y chá»n)"],
-    image: "/images/drinks/matcha-latte-nong.jpg",
+    image: "/images/drinks/matcha-latte.jpg",
     fallbackImage: fb.matcha,
   },
   {
@@ -169,7 +169,7 @@ export const drinks = [
     rating: 4.5,
     description: "Cam tÆ°Æ¡i Ã©p nguyÃªn cháº¥t khÃ´ng pha loÃ£ng, ngá»t chua tá»± nhiÃªn giÃ u vitamin C.",
     ingredients: ["Cam tÆ°Æ¡i", "ÄÃ¡", "ÄÆ°á»ng (tÃ¹y chá»n)"],
-    image: "/images/drinks/nuoc-cam-ep.jpg",
+    image: "/images/drinks/cam-ep.jpg",
     fallbackImage: fb.juice,
   },
   {
@@ -182,7 +182,7 @@ export const drinks = [
     rating: 4.4,
     description: "Chanh váº¯t tÆ°Æ¡i nguyÃªn cháº¥t, chua thanh tá»± nhiÃªn â€” giáº£i khÃ¡t nhanh gá»n vÃ  dá»… chá»‹u.",
     ingredients: ["Chanh tÆ°Æ¡i", "ÄÆ°á»ng", "ÄÃ¡", "Soda (tÃ¹y chá»n)"],
-    image: "/images/drinks/nuoc-chanh-muoi.jpg",
+    image: "/images/drinks/nuoc-chanh.jpg",
     fallbackImage: fb.juice,
   },
   {
@@ -195,7 +195,7 @@ export const drinks = [
     rating: 4.6,
     description: "NÆ°á»›c dá»«a tÆ°Æ¡i nguyÃªn trÃ¡i, ngá»t thanh tá»± nhiÃªn, bá»• Ä‘iá»‡n giáº£i vÃ  cá»±c ká»³ giáº£i nhiá»‡t.",
     ingredients: ["Dá»«a tÆ°Æ¡i", "ÄÃ¡"],
-    image: "/images/drinks/nuoc-dua.jpg",
+    image: "/images/drinks/nuoc-dua-tuoi.jpg",
     fallbackImage: fb.juice,
   },
   {
