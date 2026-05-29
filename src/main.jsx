@@ -13,7 +13,7 @@ const mealFilters = [
 ];
 
 const drinkFilters = [
-  { id: "all",          label: "Tất cả",      hint: "26 loại" },
+  { id: "all",          label: "Tất cả",      hint: "21 loại" },
   { id: "cà phê việt", label: "Cà phê Việt", hint: "truyền thống" },
   { id: "cà phê máy",  label: "Cà phê máy",  hint: "espresso" },
   { id: "trà",         label: "Trà",          hint: "thanh mát" },
