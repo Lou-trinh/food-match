@@ -849,6 +849,45 @@ img {
   font-weight: 900;
 }
 
+.liked-panel__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 11px 16px;
+  background: #c8692a;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: background 0.18s, opacity 0.18s;
+}
+.liked-panel__send:hover:not(:disabled) {
+  background: #b05820;
+}
+.liked-panel__send:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.liked-panel__send.is-done {
+  background: #2a8a50;
+}
+.liked-panel__send.is-error {
+  background: #c82a2a;
+}
+.liked-panel__send-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .liked-panel__empty {
   display: flex;
   flex-direction: column;

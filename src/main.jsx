@@ -1,6 +1,6 @@
 import { StrictMode, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Check, ChevronDown, Flame, GlassWater, RotateCcw, Search, Shuffle, Star, Utensils, X } from "lucide-react";
+import { Check, ChevronDown, Flame, GlassWater, RotateCcw, Search, Send, Shuffle, Star, Utensils, X } from "lucide-react";
 import "./styles.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -61,6 +61,7 @@ function App() {
   const [isLikedOpen, setIsLikedOpen] = useState(false);
   const [isShuffling, setIsShuffling] = useState(false);
   const [shuffleTransDur, setShuffleTransDur] = useState(200);
+  const [sendState, setSendState] = useState("idle"); // idle | sending | done | error
   const startPoint = useRef(null);
 
   const activeData = page === "food" ? foods : drinks;
@@ -185,6 +186,25 @@ function App() {
     }
 
     runStep();
+  }
+
+  async function sendOrder() {
+    if (!liked.length || sendState === "sending") return;
+    setSendState("sending");
+    try {
+      const items = liked.map(f => ({ id: f.id, name: f.name, image: f.image, price: f.price, tag: f.tag }));
+      const res = await fetch(`${API_URL}/api/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items }),
+      });
+      if (!res.ok) throw new Error("error");
+      setSendState("done");
+      window.setTimeout(() => setSendState("idle"), 3000);
+    } catch {
+      setSendState("error");
+      window.setTimeout(() => setSendState("idle"), 2500);
+    }
   }
 
   function resetDeck() {
@@ -437,6 +457,21 @@ function App() {
                   <span>Tổng cộng</span>
                   <strong>{currency(liked.reduce((sum, f) => sum + f.price, 0))}</strong>
                 </div>
+                <button
+                  className={`liked-panel__send${sendState === "done" ? " is-done" : sendState === "error" ? " is-error" : ""}`}
+                  onClick={sendOrder}
+                  disabled={sendState === "sending" || sendState === "done"}
+                >
+                  {sendState === "sending" ? (
+                    <span className="liked-panel__send-spinner" />
+                  ) : sendState === "done" ? (
+                    <><Check size={15} /> Đã gửi!</>
+                  ) : sendState === "error" ? (
+                    "Gửi thất bại, thử lại"
+                  ) : (
+                    <><Send size={15} /> Gửi đơn hôm nay</>
+                  )}
+                </button>
               </>
             ) : (
               <div className="liked-panel__empty">
