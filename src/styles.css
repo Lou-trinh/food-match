@@ -855,12 +855,13 @@ img {
   justify-content: center;
   gap: 7px;
   width: 100%;
-  padding: 11px 16px;
+  margin-top: 8px;
+  padding: 12px 14px;
   background: #c8692a;
   color: #fff;
   font-size: 0.9rem;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 16px;
   transition: background 0.18s, opacity 0.18s;
 }
 .liked-panel__send:hover:not(:disabled) {
