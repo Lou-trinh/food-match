@@ -98,8 +98,6 @@ function App() {
     setMeal("all");
     setSearch("");
     setIndex(0);
-    setLiked([]);
-    setSkipped([]);
     setDrag({ x: 0, y: 0, active: false });
     setIsLeaving(false);
     setIsAdvancing(false);
